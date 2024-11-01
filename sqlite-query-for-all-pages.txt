@@ -1,6 +1,4 @@
---sql query for homepage
-
-
+-- SQL Query for Homepage
 SELECT 
     u.image_url AS user_image_url,
     w.name AS active_wallet_name,
@@ -33,10 +31,10 @@ FROM
 JOIN 
     wallets w ON u.id = w.user_id
 WHERE 
-    w.is_active = 1;  
+    u.id = @user_id
+    AND w.is_active = 1;
 
---sql query for notifications page
-
+-- SQL Query for Notifications Page
 SELECT 
     name AS notification_name,
     description AS notification_description,
@@ -44,13 +42,12 @@ SELECT
     created_at AS notification_date
 FROM 
     notifications
+WHERE 
+    user_id = @user_id
 ORDER BY 
-    created_at DESC;  
+    created_at DESC;
 
-
-
---sql query for income
-
+-- SQL Query for Income
 SELECT 
     pr.name AS transaction_name,
     pr.amount AS transaction_amount,
@@ -63,10 +60,10 @@ JOIN
     wallets w ON p.wallet_id = w.id
 WHERE 
     pr.is_expense = 0  
-    AND w.is_active = 1;  
+    AND w.user_id = @user_id
+    AND w.is_active = 1;
 
-
---sqlite query with expense:
+-- SQL Query for Expense
 SELECT 
     pr.name AS transaction_name,
     pr.amount AS transaction_amount,
@@ -78,20 +75,21 @@ JOIN
 JOIN 
     wallets w ON p.wallet_id = w.id
 WHERE 
-    pr.is_expense = 0  
-    AND w.is_active = 1; 
+    pr.is_expense = 1  
+    AND w.user_id = @user_id
+    AND w.is_active = 1;
 
--- sqlite quert for wallet page
+-- SQL Query for Wallet Page
 SELECT 
     name AS wallet_name,
     amount AS wallet_amount,
     is_active AS wallet_is_active
 FROM 
     wallets
+WHERE 
+    user_id = @user_id;
 
-
---sqlite query for budget page
-
+-- SQL Query for Budget Page
 SELECT 
     w.name AS wallet_name,
     p.emoji,
@@ -110,12 +108,12 @@ JOIN
 LEFT JOIN 
     pocket_records pr ON p.id = pr.pocket_id
 WHERE 
-    w.is_active = 1
+    w.user_id = @user_id
+    AND w.is_active = 1
 GROUP BY 
     w.id, p.id;
 
---sqlite query for goals page
-
+-- SQL Query for Goals Page
 SELECT 
     g.name AS goal_name,
     g.description,
@@ -126,14 +124,11 @@ FROM
 LEFT JOIN 
     goal_records gr ON g.id = gr.goal_id
 WHERE 
-    g.wallet_id = (SELECT id FROM wallets WHERE is_active = 1)
+    g.wallet_id = (SELECT id FROM wallets WHERE user_id = @user_id AND is_active = 1)
 GROUP BY 
     g.id;
 
-
-
---sql query for profile page
-
+-- SQL Query for Profile Page
 SELECT 
     image_url AS profile_image_url,
     name,
@@ -143,57 +138,4 @@ SELECT
 FROM 
     users
 WHERE 
-    id = (SELECT id FROM users WHERE email = 'user@example.com'); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    id = @user_id;
