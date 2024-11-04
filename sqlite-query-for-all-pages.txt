@@ -20,7 +20,8 @@ SELECT
     (SELECT 
          pr.name || ' - ' || pr.amount || ' - ' || 
          pr.created_at || ' - ' || 
-         CASE WHEN pr.is_expense = 0 THEN 'Income' ELSE 'Expense' END AS transaction_info
+         CASE WHEN pr.is_expense = 0 THEN 'Income' ELSE 'Expense' END || 
+         ' - ' || COALESCE(pr.attachment_url, 'No Attachment') AS transaction_info
      FROM pocket_records pr 
      JOIN pockets p ON pr.pocket_id = p.id 
      WHERE p.wallet_id = w.id 
@@ -51,7 +52,8 @@ ORDER BY
 SELECT 
     pr.name AS transaction_name,
     pr.amount AS transaction_amount,
-    pr.created_at AS transaction_date
+    pr.created_at AS transaction_date,
+    pr.attachment_url AS transaction_attachment_url
 FROM 
     pocket_records pr
 JOIN 
@@ -67,7 +69,8 @@ WHERE
 SELECT 
     pr.name AS transaction_name,
     pr.amount AS transaction_amount,
-    pr.created_at AS transaction_date
+    pr.created_at AS transaction_date,
+    pr.attachment_url AS transaction_attachment_url
 FROM 
     pocket_records pr
 JOIN 

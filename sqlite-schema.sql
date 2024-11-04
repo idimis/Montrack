@@ -52,7 +52,7 @@ CREATE TABLE goals (
     name TEXT,
     description TEXT,
     amount INTEGER,
-    attachment_url TEXT,
+    attachment_url TEXT,  
     created_at DATETIME,
     updated_at DATETIME,
     deleted_at DATETIME
@@ -63,7 +63,7 @@ CREATE TABLE pockets (
     wallet_id INTEGER,
     name TEXT,
     description TEXT,
-    emoji TEXT,  -- Keeping the attribute name as 'emoji'
+    emoji TEXT,  
     amount_limit INTEGER,
     created_at DATETIME,
     updated_at DATETIME,
@@ -86,6 +86,7 @@ CREATE TABLE pocket_records (
     name TEXT,
     amount INTEGER,
     is_expense BOOLEAN,
+    attachment_url TEXT,  
     created_at DATETIME,
     updated_at DATETIME,
     deleted_at DATETIME

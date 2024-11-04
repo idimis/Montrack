@@ -84,6 +84,7 @@ CREATE TABLE "pocket_records" (
   "pocket_id" id,
   "name" text,
   "amount" integer,
+  "attachment_url" text,
   "is_expense" bool,
   "created_at" datetime,
   "updated_at" datetime,

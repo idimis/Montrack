@@ -43,9 +43,9 @@ VALUES
 (2, 'First Contribution', 1000, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Insert into pocket_records
-INSERT INTO pocket_records (pocket_id, name, amount, is_expense, created_at, updated_at)
+INSERT INTO pocket_records (pocket_id, name, amount, is_expense, attachment_url, created_at, updated_at)
 VALUES 
-(1, 'Grocery Shopping', 150, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(1, 'Weekly Shopping', 100, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(2, 'Movie Night', 30, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-(3, 'Flight to Hawaii', 1200, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+(1, 'Grocery Shopping', 150, 1, 'http://example.com/grocery_receipt.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(1, 'Weekly Shopping', 100, 1, 'http://example.com/weekly_shopping.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 'Movie Night', 30, 1, 'http://example.com/movie_ticket.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 'Flight to Hawaii', 1200, 0, 'http://example.com/hawaii_flight.jpg', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
